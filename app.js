@@ -22,6 +22,6 @@ app.get('/', function (req, res) {
 app.post('/register_push', registerPush)
 
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 8081, function () {
   console.log('Example app listening on port 3000!');
 });
