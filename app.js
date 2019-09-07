@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const registerPush = require('./routes/registerPush');
+const testPush = require('./routes/testPush');
 
 
 
@@ -20,6 +21,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/register_push', registerPush)
+app.post('/test_push', testPush)
 
 
 app.listen(process.env.PORT || 8081, function () {

@@ -11,14 +11,17 @@ async function _init() {
   _db = client.db('wastenomore');
 }
 
-async function insertOne(collectionName, ...insertArgs) {
-  if (!_db) {
-    await _init();
+function wrapMongo(funcName) {
+  return async function (collectionName, ...mongoArgs) {
+    if (!_db) {
+      await _init();
+    }
+    const collection = _db.collection(collectionName);
+    return collection[funcName](...mongoArgs);
   }
-  const collection = _db.collection(collectionName);
-  return collection.insertOne(...insertArgs);
 }
-
 module.exports = {
-  insertOne,
+  insertOne: wrapMongo('insertOne'),
+  find: wrapMongo('find'),
+  update: wrapMongo('update'),
 }
